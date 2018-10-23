@@ -30,7 +30,6 @@ const plugin = (app: App, {store, env = [], deps = {}}: Object = {}) => {
     data.version = require(`${__dirname}/../package.json`).version; // eslint-disable-line import/no-dynamic-require
     data.server = collectDependencyData(app);
     data.runtime = collectMetadata('.', env);
-    // data.build = {}; // TODO collect build metadata
     // store as much as we can before running the DI resolution algorithm (which could throw an error that we cannot catch)
     store.storeSync(data);
 
