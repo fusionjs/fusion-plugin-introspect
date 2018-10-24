@@ -13,6 +13,35 @@ import {collectDependencyData} from './collectDependencyData.js';
 import {collectMetadata} from './collectMetadata.js';
 import * as fsStore from './fs-store.js';
 
+export type IntrospectionSchema = {
+  version: string,
+  server: Dependencies,
+  browser: Dependencies,
+  runtime: Metadata,
+};
+export type Dependencies = {
+  timestamp: number,
+  dependencies: Array<Dependency>,
+  enhanced: Array<{name: string}>,
+};
+export type Dependency = {
+  name: string,
+  stack: string,
+  dependencies: Array<string>,
+};
+export type Metadata = {
+  timestamp: number,
+  pid: number,
+  nodeVersion: string,
+  npmVersion: string,
+  yarnVersion: string,
+  lockFileType: string,
+  dependencies: {[string]: string},
+  devDependencies: {[string]: string},
+  varNames: [string],
+  vars: {[string]: string},
+};
+
 const plugin = (app: App, {store, env = [], deps = {}}: Object = {}) => {
   // istanbul ignore else
   if (__NODE__) {
