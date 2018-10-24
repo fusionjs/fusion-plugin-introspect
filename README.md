@@ -101,8 +101,8 @@ The `data` that is passed to `store` and `storeSync` follows this schema:
 ```
 export type IntrospectionSchema = {
   version: string,
-  server: Dependencies,
-  browser: Dependencies,
+  server: Array<Dependencies>,
+  browser: Array<Dependencies>,
   runtime: Metadata,
 };
 export type Dependencies = {
