@@ -124,7 +124,7 @@ export type Metadata = {
   lockFileType: string,
   dependencies: {[string]: string},
   devDependencies: {[string]: string},
-  varNames: [string],
+  varNames: Array<string>,
   vars: {[string]: string},
 };
 ```
