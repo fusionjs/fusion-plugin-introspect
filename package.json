@@ -3,7 +3,7 @@
   "description": "Collect runtime Fusion.js data for debugging",
   "version": "0.1.1",
   "license": "MIT",
-  "repository": "yourorg/fusion-plugin-yourplugin",
+  "repository": "fusionjs/fusion-plugin-introspect",
   "main": "./dist/index.js",
   "module": "./dist/index.es.js",
   "browser": {
@@ -16,6 +16,17 @@
   "es2017": {
     "./dist/browser.es5.es.js": "./dist/browser.es2017.es.js",
     "./dist/browser.es2015.es.js": "./dist/browser.es2017.es.js"
+  },
+  "bin": {
+    "fusion-run-introspect": "src/cli/index.js"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "dependencies": {
+    "koa-bodyparser": "^4.2.1",
+    "sade": "^1.4.1"
   },
   "devDependencies": {
     "@babel/preset-react": "7.0.0",
@@ -36,10 +47,8 @@
     "fusion-core": "^1.8.0",
     "fusion-test-utils": "^1.2.3",
     "fusion-tokens": "^1.1.0",
-    "nyc": "^13.1.0",
-    "prettier": "^1.14.3",
-    "tape-cup": "4.7.1",
-    "unitest": "2.1.1"
+    "jest": "^23.6.0",
+    "prettier": "^1.14.3"
   },
   "peerDependencies": {
     "fusion-core": "^1.8.0",
@@ -49,21 +58,32 @@
     "clean": "rm -rf dist",
     "lint": "eslint . --ignore-path .gitignore",
     "transpile": "npm run clean && cup build",
-    "build-test": "rm -rf dist-tests && cup build-tests",
-    "just-test": "node_modules/.bin/unitest --browser=dist-tests/browser.js --node=dist-tests/node.js",
-    "test": "npm run build-test && npm run just-test",
-    "cover": "npm run build-test && nyc npm run just-test && nyc report --reporter=html",
+    "test": "jest",
+    "cover": "jest --cover",
     "view-cover": "npm run cover && open coverage/index.html",
     "prepublish": "npm run transpile"
   },
+  "jest": {
+    "projects": [
+      {
+        "displayName": "node",
+        "browser": false,
+        "testEnvironment": "node",
+        "testPathIgnorePatterns": [
+          ".*\\.browser\\.js"
+        ]
+      },
+      {
+        "displayName": "browser",
+        "browser": true,
+        "testEnvironment": "jsdom",
+        "testPathIgnorePatterns": [
+          ".*\\.node\\.js"
+        ]
+      }
+    ]
+  },
   "engines": {
     "node": ">= 8.11.0"
-  },
-  "files": [
-    "dist",
-    "src"
-  ],
-  "dependencies": {
-    "koa-bodyparser": "^4.2.1"
   }
 }
