@@ -12,7 +12,7 @@ module.exports.where = async (token /*: string*/) => {
     ...listDependencies(data.browser || []),
   ].find(dep => dep.name === token);
 
-  if (!dep) return;
+  if (!dep) return '';
 
   const sources = listSourceLines(dep, 'register').map(source => {
     return path.resolve(process.cwd(), source);

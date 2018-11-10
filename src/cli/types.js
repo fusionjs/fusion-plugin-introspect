@@ -15,12 +15,15 @@ export type DepData = {
 
 export type Dep = {
   name: string,
-  type: string,
+  type: 'value' | 'service' | 'middleware' | 'both' | 'noop',
   sources: Array<Source>,
   dependencies: Array<string>,
 };
 
-export type Source = {type: string, source: string};
+export type Source = {
+  type: 'token' | 'plugin' | 'register' | 'enhance' | 'alias-from' | 'alias-to',
+  source: string,
+};
 
 export type Metadata = {
   timestamp: number,

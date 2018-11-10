@@ -8,13 +8,13 @@ module.exports.why = async (token /*: string*/) => {
   const deps = listDependencies(data.server);
   const dep = deps.find(dep => dep.name === token);
 
-  if (!dep) return;
+  if (!dep) return '';
 
   const explanation = [
     describeType(dep, token),
     describeUsage(dep, token),
-    graphParents(deps, token),
-    graphChildren(deps, token),
+    `${token} is used by:\n` + graphParents(deps, token),
+    `${token} depends on:\n` + graphChildren(deps, token),
   ];
   return explanation.filter(Boolean).join('\n');
 };
@@ -52,7 +52,7 @@ function describeUsage(dep, token) {
       }
     })
     .filter(Boolean)
-    .join('');
+    .join('\n');
 }
 
 function graphParents(deps, token, fork = true, level = 0) {
@@ -66,7 +66,7 @@ function graphParents(deps, token, fork = true, level = 0) {
       return `${indent}${line} ${name}\n${parents}`;
     })
     .join('\n');
-  return parents ? `${token} is used by:\n${parents}` : '';
+  return parents;
 }
 
 function graphChildren(deps, token, fork = true, level = 0) {
@@ -81,5 +81,5 @@ function graphChildren(deps, token, fork = true, level = 0) {
       return `${indent}${line} ${dep}\n${children}`;
     })
     .join('');
-  return children ? `${token} depends on:\n${children}` : '';
+  return children;
 }

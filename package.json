@@ -29,9 +29,14 @@
     "sade": "^1.4.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.1.5",
+    "@babel/plugin-transform-modules-commonjs": "^7.1.0",
+    "@babel/preset-flow": "^7.0.0",
     "@babel/preset-react": "7.0.0",
     "@types/redux": "3.6.31",
+    "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
+    "babel-jest": "^23.6.0",
     "create-universal-package": "3.4.6",
     "enzyme": "3.7.0",
     "enzyme-adapter-react-16": "1.6.0",
@@ -56,32 +61,52 @@
   },
   "scripts": {
     "clean": "rm -rf dist",
-    "lint": "eslint . --ignore-path .gitignore",
+    "lint": "eslint .",
     "transpile": "npm run clean && cup build",
     "test": "jest",
-    "cover": "jest --cover",
+    "cover": "jest --coverage",
     "view-cover": "npm run cover && open coverage/index.html",
     "prepublish": "npm run transpile"
   },
   "jest": {
     "projects": [
       {
+        "name": "node",
         "displayName": "node",
         "browser": false,
         "testEnvironment": "node",
-        "testPathIgnorePatterns": [
-          ".*\\.browser\\.js"
-        ]
+        "testRegex": ".*\\.node\\.js$",
+        "globals": {
+          "__BROWSER__": false,
+          "__NODE__": true,
+          "__DEV__": false
+        }
       },
       {
+        "name": "browser",
         "displayName": "browser",
         "browser": true,
         "testEnvironment": "jsdom",
-        "testPathIgnorePatterns": [
-          ".*\\.node\\.js"
-        ]
+        "testRegex": ".*\\.browser\\.js$",
+        "globals": {
+          "__BROWSER__": true,
+          "__NODE__": false,
+          "__DEV__": false
+        }
       }
     ]
+  },
+  "babel": {
+    "env": {
+      "test": {
+        "presets": [
+          "@babel/preset-flow"
+        ],
+        "plugins": [
+          "@babel/plugin-transform-modules-commonjs"
+        ]
+      }
+    }
   },
   "engines": {
     "node": ">= 8.11.0"

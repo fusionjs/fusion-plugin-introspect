@@ -1,3 +1,5 @@
 // @flow
-// eslint-disable-next-line
-module.exports.logs = fn => async (...args) => console.log(await fn(...args));
+module.exports.logs = (fn /*: Function */) => async (...args /*: mixed */) => {
+  // eslint-disable-next-line
+  console.log(await fn(...args));
+};

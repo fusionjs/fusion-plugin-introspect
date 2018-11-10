@@ -1,11 +1,11 @@
 // @flow
 
 /*::
-import type {Source} from './types.js';
+import type {Dep, Source} from './types.js';
 */
 
 module.exports.listSourceLines = (
-  dep /*: {type: string, sources: Array<Source>}*/,
+  dep /*: Dep */,
   type /*: string */
 ) /*: Array<string> */ => {
   return dep.sources

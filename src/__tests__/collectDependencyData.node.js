@@ -52,7 +52,7 @@ test('collectDependencyData', () => {
     expect(a.sources instanceof Array).toBe(true);
     expect(a.name).toBe('A');
     expect(a.type).toBe('noop');
-    expect(a.dependencies).toBe([]);
+    expect(a.dependencies).toEqual([]);
   } else throw new Error('should find A');
 
   const b = data.dependencies.find(d => d.name === 'B');
