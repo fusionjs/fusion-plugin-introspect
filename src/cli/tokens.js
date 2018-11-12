@@ -3,6 +3,7 @@ const {parseRuntimeMetadata} = require('./parseRuntimeMetadata.js');
 const {getMaxWordWidth} = require('./getMaxWordWidth.js');
 const {listDependencies} = require('./listDependencies.js');
 const {listSourceLines} = require('./listSourceLines.js');
+const {sortDependencies} = require('./sortDependencies.js');
 
 module.exports.tokens = async () => {
   const data = await parseRuntimeMetadata();
@@ -16,7 +17,7 @@ module.exports.tokens = async () => {
 
 const tabulateTokens = (data, type) => {
   const space = ' '.repeat(getMaxWordWidth(data[type]) + 2);
-  return listDependencies(data[type])
+  return sortDependencies(listDependencies(data[type]))
     .map(dep => {
       const name = dep.name;
       return (
