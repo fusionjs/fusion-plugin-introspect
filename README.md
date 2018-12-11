@@ -1,6 +1,6 @@
 # fusion-plugin-introspect
 
-Collects runtime metadata to aid debugging
+Visualize the tree of plugins in your app
 
 ---
 
