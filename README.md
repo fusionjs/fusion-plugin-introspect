@@ -46,7 +46,7 @@ Some commands to try:
 # list tokens in order of registration
 fusion-plugin-introspect tokens
 
-# list dependents and dependencies of a token
+# display tree of token's dependents and dependencies
 fusion-plugin-introspect why RenderToken
 
 # discover more commands
