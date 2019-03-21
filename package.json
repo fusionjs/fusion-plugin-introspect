@@ -56,7 +56,7 @@
     "prettier": "^1.15.3"
   },
   "peerDependencies": {
-    "fusion-core": "^1.10.0",
+    "fusion-core": "^1.10.6",
     "fusion-tokens": "^1.1.1"
   },
   "scripts": {
